@@ -1,0 +1,190 @@
+{% load static %}
+{% load templatetags %}
+{% categories as cat %}
+<html lang="en">
+
+<!-- Mirrored from preview.colorlib.com/theme/balita/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Nov 2024 12:33:09 GMT -->
+<head>
+    <title>Colorlib Balita &mdash; Minimal Blog Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+
+
+
+<header role="banner">
+      <div class="top-bar">
+        <div class="container">
+          <div class="row">
+            <div class="col-9 social">
+              <a href="#"><span class="fa fa-twitter"></span></a>
+              <a href="#"><span class="fa fa-facebook"></span></a>
+              <a href="#"><span class="fa fa-instagram"></span></a>
+              <a href="#"><span class="fa fa-youtube-play"></span></a>
+              <a href="#"><span class="fa fa-vimeo"></span></a>
+              <a href="#"><span class="fa fa-snapchat"></span></a>
+            </div>
+            <div class="col-3 search-top">
+              <!-- <a href="#"><span class="fa fa-search"></span></a> -->
+              <form action="/search/" method="post" class="search-top-form">
+                  {% csrf_token %}
+                <input name="query" type="text" id="s" placeholder="Type keyword to search...">
+                <span class="icon fa fa-search"></span>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container logo-wrap">
+        <div class="row pt-5">
+          <div class="col-12 text-center">
+            <a class="absolute-toggle d-block d-md-none" data-toggle="collapse" href="#navbarMenu" role="button" aria-expanded="false" aria-controls="navbarMenu"><span class="burger-lines"></span></a>
+            <h1 class="site-logo"><a href="/">Balita</a></h1>
+          </div>
+        </div>
+      </div>
+
+      <nav class="navbar navbar-expand-md  navbar-light bg-light">
+        <div class="container">
+
+
+          <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{% url 'category' %}" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown05">
+                  {% for cati in cat %}
+                  <a class="dropdown-item" href="/category/{{ cati.name }}">{{ cati.name }}</a>
+                  {% endfor %}
+                </div>
+
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+    </nav>
+</header>
+
+{% block content  %}
+    {% endblock content %}
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-4">
+            <h3>Paragraph</h3>
+            <p>
+              <img src="{% static 'images/img_1.jpg' %}" alt="Image placeholder" class="img-fluid">
+            </p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, accusantium optio unde perferendis eum illum voluptatibus dolore tempora, consequatur minus asperiores temporibus reprehenderit.</p>
+          </div>
+          <div class="col-md-6 ml-auto">
+            <div class="row">
+              <div class="col-md-7">
+                <h3>Latest Post</h3>
+                <div class="post-entry-sidebar">
+                  <ul>
+                    {% for post in latest %}
+                    <li>
+                      <a href="/blog-single/{{ post.id }}/">
+                        <img src="{{ post.main_image.url }}" alt="Image placeholder" class="mr-4">
+                        <div class="text">
+                          <h4>{{ post.title }}</h4>
+                          <div class="post-meta">
+                            <span class="mr-2">{{ post.created_at }}</span>
+                                    <span class="ml-2"><span class="fa fa-comments"></span>{{ post.comment_count }}</span>
+                            <span class="ml-2"><span class="fa fa-eye"></span>{{ post.views_count }}</span>
+
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-1"></div>
+
+              <div class="col-md-4">
+
+                <div class="mb-5">
+                  <h3>Quick Links</h3>
+                  <ul class="list-unstyled">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Travel</a></li>
+                    <li><a href="#">Adventure</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Categories</a></li>
+                  </ul>
+                </div>
+
+                <div class="mb-5">
+                  <h3>Social</h3>
+                  <ul class="list-unstyled footer-social">
+                    <li><a href="#"><span class="fa fa-twitter"></span> Twitter</a></li>
+                    <li><a href="#"><span class="fa fa-facebook"></span> Facebook</a></li>
+                    <li><a href="#"><span class="fa fa-instagram"></span> Instagram</a></li>
+                    <li><a href="#"><span class="fa fa-vimeo"></span> Vimeo</a></li>
+                    <li><a href="#"><span class="fa fa-youtube-play"></span> Youtube</a></li>
+                    <li><a href="#"><span class="fa fa-snapchat"></span> Snapshot</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- END footer -->
+
+    <!-- loader -->
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+</body>
+
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.0.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+
+<!-- Mirrored from preview.colorlib.com/theme/balita/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Nov 2024 12:33:13 GMT -->
+</html>

@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="site-section">
+      <div class="container">
+        
+        <div class="row blog-entries">
+          <div class="col-md-12 col-lg-8 main-content">
+            
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="mb-4">Hi There! I'm Mr Beknur</h2>
+                <p class="mb-5"><img src="{% static 'images/img_6.jpg' %}" alt="Image placeholder" class="img-fluid"></p>
+                <p>Beknurda hammasi yaxshi</p>
+              </div>
+            </div>
+
+            <div class="row mb-5 mt-5">
+              <div class="col-md-12 mb-5">
+                <h2>My Latest Posts</h2>
+              </div>
+              <div class="col-md-12">
+                {% for post in latest %}
+                <div class="post-entry-horzontal">
+                  <a href="/blog-single/{{ post.id }}/">
+                    <div class="image" style="background-image: url({{ post.main_image.url }});"></div>
+                    <span class="text">
+                      <div class="post-meta">
+                        <span class="category">Travel</span>
+                        <span class="mr-2">{{ post.upload_at }}</span> &bullet;
+                                    <span class="ml-2"><span class="fa fa-comments"></span>{{ post.comment_count }}</span>
+                      </div>
+                      <h2>{{ post.title }}</h2>
+                    </span>
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <!-- END main-content -->
+              {% include 'layouts/sidebar.html' %}
+          <!-- END sidebar -->
+
+        </div>
+      </div>
+    </section>
+  {% endblock content %}
+

@@ -1,0 +1,131 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load templatetags %}
+{% tags as tag %}
+{% block content %}
+
+    <section class="site-section py-lg">
+      <div class="container">
+        
+        <div class="row blog-entries">
+          <div class="col-md-12 col-lg-8 main-content">
+            <h1 class="mb-4">{{ post.title }}</h1>
+            <div class="post-meta">
+                        <span class="category">{{ post.category.name }}</span>
+                        <span class="mr-2">{{ post.created_at }}</span> &bullet;
+                        <span class="ml-2"><span class="fa fa-comments"></span>{{ comment_count }}</span>
+                        <span class="ml-2"><span class="fa fa-eye"></span> {{ post.views_count }}</span>
+
+                      </div>
+            <div class="post-content-body">
+              <p>{{ post.description }}</p>
+            <div class="row mb-5">
+              <div class="col-md-12 mb-4 element-animate">
+                <img src="{{ post.main_image.url }}" alt="Image placeholder" class="img-fluid">
+              </div>
+              <div class="col-md-6 mb-4 element-animate">
+                <img src="{% static 'images/img_9.jpg' %}" alt="Image placeholder" class="img-fluid">
+              </div>
+              <div class="col-md-6 mb-4 element-animate">
+                <img src="{% static 'images/img_11.jpg' %}" alt="Image placeholder" class="img-fluid">
+              </div>
+            </div>
+              <p>{{ post.description }}</p>
+            </div>
+
+            
+            <div class="pt-5">
+              <p>Categories:  <a href="/category/{{ post.category.name }}">{{ post.category.name }}
+              </a>  Tags: {% for tag in tags %} <a href="/tags/{{ tag.name }}">#{{ tag.name }}</a> {% endfor %}</p>
+            </div>
+
+
+            <div class="pt-5">
+              <h3 class="mb-5">{{ comment_count }} Comments</h3>
+              {% for comment in comments %}
+              <ul class="comment-list">
+
+                <li class="comment">
+                  <div class="vcard">
+                    <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
+                  </div>
+                  <div class="comment-body">
+                    <h3>{{ comment.name }}</h3>
+                    <div class="meta">{{ comment.created_at }}</div>
+                    <p>{{ comment.message }}</p>
+                    <p><a href="#" class="reply">Reply</a></p>
+                  </div>
+                </li>
+                </ul>
+{% endfor %}
+              <div class="comment-form-wrap pt-5" >
+                <h3 class="mb-5">Leave a comment</h3>
+                <form action="/comment/{{ post.id }}" class="p-5 bg-light" method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" name="name" required class="form-control" id="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" name="email" required class="form-control" id="email">
+                  </div>
+                  <div class="form-group">
+                    <label for="website">Website</label>
+                    <input type="url" name="website" class="form-control" id="website">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" required cols="30" rows="10" class="form-control"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" value="Post Comment" class="btn btn-primary">
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- END main-content -->
+
+              {% include 'layouts/sidebar.html' %}
+
+          <!-- END sidebar -->
+
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="mb-3 ">Related Post</h2>
+          </div>
+        </div>
+        <div class="row">
+          {% for post in latest %}
+          <div class="col-md-6 col-lg-4">
+            <a href="/blog-single/{{ post.id }}/" class="a-block d-flex align-items-center height-md" style="background-image: url({{ post.main_image.url }}); ">
+              <div class="text">
+                <div class="post-meta">
+                  <span class="category">{{ post.category.name }}</span>
+                  <span class="mr-2">{{ post.created_at }}</span>
+                                    <span class="ml-2"><span class="fa fa-comments"></span>{{ post.comment_count }}</span>
+                </div>
+                <h3>{{ post.title }}</h3>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+
+    </section>
+    <!-- END section -->
+
+{% endblock content %}

@@ -1,0 +1,146 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="site-section pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="owl-carousel owl-theme home-slider">
+                        {% for post in carousel %}
+                    <div>
+                        <a href="/blog-single/{{ post.id }}/" class="a-block d-flex align-items-center height-lg"
+                           style="background-image: url({{ post.main_image }}); ">
+                            <div class="text half-to-full">
+                                <div class="post-meta">
+                                    <span class="category">{{ post.category.name }}</span>
+                                    <span class="mr-2">{{ post.created_at }}</span> &bullet;
+                                    <span class="ml-2"><span class="fa fa-comments"></span>{{ post.comment_count }}</span>
+                                    <span class="ml-2"><span class="fa fa-eye"></span>{{ post.views_count }}</span>
+                                </div>
+                                <h3>{{ post.title }}</h3>
+                                <p>{{ post.description }}</p>
+                            </div>
+                        </a>
+                    </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% include 'layouts/uchtalik.html' %}
+    </div>
+
+
+</section>
+<!-- END section -->
+
+<section class="site-section py-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="mb-4">Lifestyle Category</h2>
+            </div>
+        </div>
+        <div class="row blog-entries">
+            <div class="col-md-12 col-lg-8 main-content">
+                <div class="row">
+                    {% for post in posts %}
+                    <div class="col-md-6">
+                        <a href="blog-single/{{ post.id }}/" class="blog-entry element-animate" data-animate-effect="fadeIn">
+                            <img src="{{ post.main_image.url }}" alt="Image placeholder">
+                            <div class="blog-content-body">
+                                <div class="post-meta">
+                                    <span class="category">{{ post.category.name }}</span>
+                                    <span class="mr-2"> {{ post.created_at }} </span> &bullet;
+                                    <span class="ml-2"><span class="fa fa-comments"></span>{{ post.comment_count }}</span>
+                                    <span class="ml-2"><span class="fa fa-eye"></span>{{ post.views_count }}</span>
+
+                                </div>
+                                <h2>{{ post.title }}</h2>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <nav aria-label="Page navigation" class="text-center">
+                            <ul class="pagination">
+                                {% if is_first %}
+                                {% else %}
+                                <li class="page-item "><a class="page-link" href="/?page={{ prev_page }}">Prev</a></li>
+                                {% endif %}
+                                {% for page in page_count %}
+                                {% if page == current_page %}
+                                <li class="page-item active"><a class="page-link">{{ page }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="/?page={{ page }}">{{ page }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if is_last %}
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="/?page={{ next_page }}">Next</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+<!--					<div class="block-27">-->
+<!--						<ul>-->
+<!--							{% if is_first %}-->
+<!--							{% else %}-->
+<!--							<li><a href="/blog/?page={{ prev_page }}">&lt;</a></li>-->
+<!--							{% endif %}-->
+<!--							{% for page in page_count %}-->
+<!--								{% if page == current_page %}-->
+<!--									<li class="active"><span href="/blog/?page={{ page }}" ><span>{{ page }}</span></span></li>-->
+<!--								{% else %}-->
+<!--									<li><a href="/blog/?page={{ page }}" ><span>{{ page }}</span></a></li>-->
+<!--								{% endif %}-->
+<!--							{% endfor %}-->
+<!--							{% if is_last %}-->
+<!--							{% else %}-->
+<!--							<li><a href="/blog/?page={{ next_page }}">&gt;</a></li>-->
+<!--							{% endif %}-->
+<!--						</ul>-->
+<!--					</div>-->
+
+
+                <div class="row mb-5 mt-5">
+
+                    <div class="col-md-12">
+                        <h2 class="mb-4">More Blog Posts</h2>
+                    </div>
+
+                    <div class="col-md-12">
+                        {% for post in more %}
+                        <div class="post-entry-horzontal">
+                            <a href="blog-single/{{ post.id }}/">
+                                <div class="image element-animate" data-animate-effect="fadeIn"
+                                     style="background-image: url({{ post.main_image.url }});"></div>
+                                <span class="text">
+                      <div class="post-meta">
+                        <span class="category">{{ post.category.name }}</span>
+                        <span class="mr-2">{{ post.created_at }}</span> &bullet;
+                        <span class="ml-2"><span class="fa fa-comments"></span>{{ post.comment_count }}</span>
+                        <span class="ml-2"><span class="fa fa-eye"></span> {{ post.views_count }}</span>
+                      </div>
+                      <h2>{{ post.title }}</h2>
+                    </span>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- END main-content -->
+              {% include 'layouts/sidebar.html' %}
+
+            <!-- END sidebar -->
+
+        </div>
+    </div>
+</section>
+{% endblock content %}
